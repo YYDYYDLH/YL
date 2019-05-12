@@ -1,0 +1,115 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+typedef struct _node{
+	char type[20];
+	char model[20];
+	int num;
+	int iden;//0代表客户，1代表进货商
+	char name[20];
+	int month;
+	int day;
+	int hour;
+	int minute;
+	struct _node* next;
+}Node;
+void add(Node** pHead,char type[],char model[],int num,int iden,char name[],int month,int day,int hour,int minute){
+	FILE* fp=fopen("source.txt","a+");//以a+形式打开source文件
+	Node* p=(Node*)malloc(sizeof(Node));//创建一个节点p
+	Node* last=*pHead;
+	strcpy(p->type,type);//输入节点中各个数据
+	strcpy(p->model,model);
+	p->num=num;
+	p->iden=iden;
+	strcpy(p->name,name);
+	p->month=month;
+	p->day=day;
+	p->hour=hour;
+	p->minute=minute;
+	p->next=NULL;
+	fprintf(fp,"%s ",p->type);//将链表的各个数据输入文件中
+	fprintf(fp,"%s ",p->model);
+	fprintf(fp,"%d ",p->num);
+	fprintf(fp,"%d ",p->iden);
+	fprintf(fp,"%s ",p->name);
+	fprintf(fp,"%d ",p->month);
+	fprintf(fp,"%d ",p->day);
+	fprintf(fp,"%d ",p->hour);
+	fprintf(fp,"%d\n",p->minute);
+	if(last){
+		while(last->next){
+			last=last->next;
+		}
+		last->next=p;
+	}else{
+		*pHead=p;
+	}
+	
+	fclose(fp);  
+}
+int main(){
+	int num,iden,month,day,hour,minute;
+	int a[100],b[100],c[100],d[100],i,j,k,money=50000000;
+	int price[4][10]={{100,125,150,175,200,225,250,275,300,325},{300,500,700,900,1100,1300,1200,1700,2000,2500},{180,250,500,750,900,1050,1500,1700,2000,3000},{50,80,120,150,180,200,250,300,380,500}};//主板，CPU，显卡，内存
+	char type[20],model[20],name[20],ch,id[20];
+	Node* head=NULL;
+	Node* p;
+	printf("欢迎来到我们制作的系统\n");
+	printf("请选择你的身份：1、客户 2、管理员\n");
+	scanf("%d",&a[0]);
+	if(a[0]==1){
+		printf("客户，你好！\n");
+		printf("请输入你的名字:");
+		scanf("%s",&id);
+		printf("请选择你需要的服务：1、购买 2、退货 3、查询购买信息\n");
+		scanf("%d",&a[1]);
+		if(a[1]==1){
+			printf("请输入你要购买的类型：1、主机 2、CPU 3、显卡 4、内存\n");
+			scanf("%d",&a[2]);
+			if(a[2]==1){
+				printf("你想要什么型号：");
+			}else if(a[2]==2){
+				printf("你想要什么型号：");
+			}else if(a[2]==3){
+				printf("你想要什么型号：");
+			}else{
+				printf("你想要什么型号：");
+			}
+		}else if(a[1]==2){
+			
+		}else{
+		}
+	}else{
+		printf("你好，管理员！\n");
+		printf("请选择你的操作：1、录入销售/进货记录 2、修改销售/进货记录 3、删除销售/进货记录 4、查询销售/进货记录 5、查询系统余额\n");
+		scanf("%d",&b[0]);
+		if(b[0]==1){
+			printf("please input type,model,num,iden,name,month,day,hour,minute:(type分为“主板”，“CPU”，“显卡”，“内存”；iden中0代表客户，1代表进货商；输入每条记录后只有回车才能进行下一次输入)\n");
+			do{
+				scanf("%s",&type);
+				scanf("%s",&model);
+				scanf("%d",&num);
+				scanf("%d",&iden);
+				scanf("%s",&name);
+				scanf("%d",&month);
+				scanf("%d",&day);
+				scanf("%d",&hour);
+				scanf("%d",&minute);
+				add(&head,type,model,num,iden,name,month,day,hour,minute);
+			}while(ch=getchar()=='\n');
+		}else if(b[0]==2){
+			
+		}else if(b[0]==3){
+
+		}else if(b[0]==4){
+
+
+		}else{
+			printf("系统余额为：%d\n",money);
+		}
+	}
+	return 0;
+}
+	
+
+	
